@@ -1,0 +1,66 @@
+import pygame
+# -- Global Constants
+# -- Colours
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+BLUE = (50,50,255)
+YELLOW = (255,255,0)
+PURPLE = (44, 1, 143)
+RED = (255,0,0)
+GREEN = (0, 255, 0)
+BRICK = (255, 129, 94)
+
+# -- Initialise PyGame
+pygame.init()
+# -- Blank Screen
+size = (640,480)
+screen = pygame.display.set_mode(size)
+# -- Title of new window/screen
+pygame.display.set_caption("House")
+# -- Exit game flag set to false
+done = False
+sun_x = 0
+sun_y = 100
+sun_diameter = 40
+# -- Manages how fast screen refreshes
+clock = pygame.time.Clock()
+
+
+### -- Game Loop
+while not done:
+  # -- User input and controls
+  for event in pygame.event.get():
+     if event.type == pygame.QUIT:
+        done = True
+     #End If
+  #Next event
+  # -- Game logic goes after this comment
+  # -- Screen background is BLACK
+  screen.fill (BLACK)
+  # -- Draw here
+  pygame.draw.circle(screen, YELLOW, (sun_x, sun_y),sun_diameter,0)
+  pygame.draw.rect(screen, BRICK, (200,300,200,300))
+  pygame.draw.polygon(screen, BRICK, ((200,300), (399,300), (300,200)))
+  sun_x = sun_x + 5
+  if sun_x == 750:
+     sun_x = 0
+  if sun_x < 330:
+     sun_y = sun_y - 1
+  if sun_x > 300:
+     sun_y = sun_y + 1
+  if sun_x == 0:
+    sun_y = 100
+  if sun_x ==740:
+    sun_diameter = 40
+  if sun_x % 15 == 0:
+    sun_diameter = sun_diameter + 1
+  
+
+  
+  #End If
+  # -- flip display to reveal new position of objects
+  pygame.display.flip()
+  # - The clock ticks over
+  clock.tick(60)
+#End While - End of game loop
+pygame.quit()
